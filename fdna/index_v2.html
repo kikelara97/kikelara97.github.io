@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tabla de Puntos por Categoría</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Estilos personalizados -->
   <style>
     body {
@@ -62,32 +60,10 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS y dependencias -->
+  <!-- Bootstrap JS y dependencias cargadas en el body -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Datos en formato JSON -->
   <script>
-    const masculinoJunior = [
-      { "nombre": "Juan", "apellidos": "Pérez", "club": "Club A", "prueba1": 10, "prueba2": 12, "prueba3": 15, "prueba4": 8, "prueba5": 9, "prueba6": 7, "total": 61 },
-      { "nombre": "Carlos", "apellidos": "García", "club": "Club B", "prueba1": 14, "prueba2": 9, "prueba3": 12, "prueba4": 10, "prueba5": 11, "prueba6": 13, "total": 69 }
-    ];
-
-    const femeninoJunior = [
-      { "nombre": "Ana", "apellidos": "López", "club": "Club C", "prueba1": 12, "prueba2": 10, "prueba3": 14, "prueba4": 9, "prueba5": 8, "prueba6": 10, "total": 63 },
-      { "nombre": "Laura", "apellidos": "Martínez", "club": "Club D", "prueba1": 11, "prueba2": 13, "prueba3": 9, "prueba4": 12, "prueba5": 14, "prueba6": 11, "total": 70 }
-    ];
-
-    const masculinoSenior = [
-      { "nombre": "Pedro", "apellidos": "Fernández", "club": "Club E", "prueba1": 15, "prueba2": 12, "prueba3": 14, "prueba4": 11, "prueba5": 13, "prueba6": 16, "total": 81 },
-      { "nombre": "Luis", "apellidos": "Sánchez", "club": "Club F", "prueba1": 13, "prueba2": 10, "prueba3": 11, "prueba4": 12, "prueba5": 10, "prueba6": 12, "total": 68 }
-    ];
-
-    const femeninoSenior = [
-      { "nombre": "Marta", "apellidos": "Gómez", "club": "Club G", "prueba1": 14, "prueba2": 15, "prueba3": 13, "prueba4": 12, "prueba5": 10, "prueba6": 14, "total": 78 },
-      { "nombre": "Isabel", "apellidos": "Ruiz", "club": "Club H", "prueba1": 16, "prueba2": 14, "prueba3": 15, "prueba4": 11, "prueba5": 13, "prueba6": 12, "total": 81 }
-    ];
-
-    // Función para rellenar la tabla
+    // Función para rellenar la tabla con los datos obtenidos
     function fillTable(data) {
       const tableBody = document.getElementById('data-table-body');
       tableBody.innerHTML = '';  // Limpiar la tabla antes de rellenarla
@@ -109,24 +85,27 @@
       });
     }
 
+    // Función para cargar los datos desde el archivo JSON
+    function loadData(category) {
+      fetch(`${category}.json`)
+        .then(response => response.json())
+        .then(data => {
+          fillTable(data);
+        })
+        .catch(error => console.error('Error al cargar los datos:', error));
+    }
+
     // Evento para cambiar la categoría seleccionada
     document.getElementById('category').addEventListener('change', function() {
       const selectedCategory = this.value;
-
-      if (selectedCategory === 'masculino_junior') {
-        fillTable(masculinoJunior);
-      } else if (selectedCategory === 'femenino_junior') {
-        fillTable(femeninoJunior);
-      } else if (selectedCategory === 'masculino_senior') {
-        fillTable(masculinoSenior);
-      } else if (selectedCategory === 'femenino_senior') {
-        fillTable(femeninoSenior);
-      }
+      loadData(selectedCategory);
     });
 
     // Cargar la tabla con la primera categoría por defecto
-    fillTable(masculinoJunior);
+    loadData('masculino_junior');
   </script>
 
+  <!-- Bootstrap CSS cargado al final del body -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </body>
 </html>

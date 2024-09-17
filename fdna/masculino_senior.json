@@ -1,0 +1,4 @@
+[
+  { "nombre": "Juan", "apellidos": "Pérez", "club": "Club A", "prueba1": 10, "prueba2": 12, "prueba3": 15, "prueba4": 8, "prueba5": 9, "prueba6": 7, "total": 61 },
+  { "nombre": "Carlos", "apellidos": "García", "club": "Club B", "prueba1": 14, "prueba2": 9, "prueba3": 12, "prueba4": 10, "prueba5": 11, "prueba6": 13, "total": 69 }
+]
